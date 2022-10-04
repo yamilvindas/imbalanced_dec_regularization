@@ -1,0 +1,11 @@
+{
+  "dataset_type": "imbalanced_separated",
+  "use_dec": true,
+  "nb_repetitions": 10,
+  "lr": 5e-3,
+  "batch_size": 32,
+  "nb_epochs": 50,
+  "importance_dec": 10,
+  "epoch_init_dec_loss": 1,
+  "plot_animation_bool": true
+}

@@ -1,0 +1,11 @@
+{
+  "dataset_type": "imbalanced_mixed",
+  "use_dec": false,
+  "nb_repetitions": 10,
+  "lr": 5e-2,
+  "batch_size": 32,
+  "nb_epochs": 50,
+  "importance_dec": 1,
+  "epoch_init_dec_loss": 5,
+  "plot_animation_bool": true
+}
