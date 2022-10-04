@@ -72,6 +72,12 @@ class TrainSingleModel(object):
         #self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.device = torch.device('cpu')
 
+        #======================================================================#
+        #================== Generation of the synthetic data ===================
+        #======================================================================#
+        # Creating the synthetic data
+        self.generateSyntheticData()
+
     def generateSyntheticData(self):
         """
             Generates a synthetic 3D dataset based on the chosen dataset type
@@ -339,17 +345,17 @@ class TrainSingleModel(object):
                     predictions_results['Test']['PredictedLabels'][epoch] += test_predictions['PredictedLabels']
 
                 loss_values['Test'][epoch] = np.mean(tmp_test_losses)
-                print("================================================================================")
-                print("METRICS\n")
-                print("\n=======>Train loss at epoch {} is {}".format(epoch, loss_values['Train'][epoch]))
-                print("\t\tTest loss at epoch {} is {}".format(epoch, loss_values['Test'][epoch]))
-                print("\n=======>Train F1 Score at epoch {} is {}\n".format(epoch, f1_score(predictions_results['Train']['TrueLabels'][epoch], predictions_results['Train']['PredictedLabels'][epoch], average='micro')))
-                print("\t\tTest F1 Score at epoch {} is {}".format(epoch, f1_score(predictions_results['Test']['TrueLabels'][epoch], predictions_results['Test']['PredictedLabels'][epoch], average='micro')))
-                print("\n=======>Train MCC at epoch {} is {}\n".format(epoch, matthews_corrcoef(predictions_results['Train']['TrueLabels'][epoch], predictions_results['Train']['PredictedLabels'][epoch])))
-                print("\t\tTest MCC at epoch {} is {}".format(epoch, matthews_corrcoef(predictions_results['Test']['TrueLabels'][epoch], predictions_results['Test']['PredictedLabels'][epoch])))
-                print("\n=======>Train accuracy at epoch {} is {}\n".format(epoch, accuracy_score(predictions_results['Train']['TrueLabels'][epoch], predictions_results['Train']['PredictedLabels'][epoch])))
-                print("\t\tTest accuracy at epoch {} is {}".format(epoch, accuracy_score(predictions_results['Test']['TrueLabels'][epoch], predictions_results['Test']['PredictedLabels'][epoch])))
-                print("================================================================================\n\n")
+                # print("================================================================================")
+                # print("METRICS\n")
+                # print("\n=======>Train loss at epoch {} is {}".format(epoch, loss_values['Train'][epoch]))
+                # print("\t\tTest loss at epoch {} is {}".format(epoch, loss_values['Test'][epoch]))
+                # print("\n=======>Train F1 Score at epoch {} is {}\n".format(epoch, f1_score(predictions_results['Train']['TrueLabels'][epoch], predictions_results['Train']['PredictedLabels'][epoch], average='micro')))
+                # print("\t\tTest F1 Score at epoch {} is {}".format(epoch, f1_score(predictions_results['Test']['TrueLabels'][epoch], predictions_results['Test']['PredictedLabels'][epoch], average='micro')))
+                # print("\n=======>Train MCC at epoch {} is {}\n".format(epoch, matthews_corrcoef(predictions_results['Train']['TrueLabels'][epoch], predictions_results['Train']['PredictedLabels'][epoch])))
+                # print("\t\tTest MCC at epoch {} is {}".format(epoch, matthews_corrcoef(predictions_results['Test']['TrueLabels'][epoch], predictions_results['Test']['PredictedLabels'][epoch])))
+                # print("\n=======>Train accuracy at epoch {} is {}\n".format(epoch, accuracy_score(predictions_results['Train']['TrueLabels'][epoch], predictions_results['Train']['PredictedLabels'][epoch])))
+                # print("\t\tTest accuracy at epoch {} is {}".format(epoch, accuracy_score(predictions_results['Test']['TrueLabels'][epoch], predictions_results['Test']['PredictedLabels'][epoch])))
+                # print("================================================================================\n\n")
 
         # Saving the last epoch metrics
         last_epoch_metrics = {'Train': {'MCC': 0, 'F1-Score': 0, 'Accuracy': 0}, 'Test': {'MCC': 0, 'F1-Score': 0, 'Accuracy': 0}}
@@ -368,14 +374,14 @@ class TrainSingleModel(object):
         """
             Repeats the experiment self.nb_repetitions times
         """
-        # Creating the synthetic data
-        self.generateSyntheticData()
         # Training the model
         self.list_loss_values = []
         self.list_encodings_by_epochs = []
         self.list_cluster_centers_by_epoch = []
         self.list_last_epoch_metrics = []
+        print("\n")
         for rep in range(self.nb_repetitions):
+            print("=======> Doing repetition {}".format(rep))
             # Doing the training
             tmp_loss_values,\
             tmp_encodings_by_epochs,\
@@ -419,9 +425,9 @@ def main():
     single_train_exp.repeatedHoldout()
 
     # Print the mean metrics
-    get_mean_metrics(single_train_exp.list_last_epoch_metrics, metric_type='MCC')
-    get_mean_metrics(single_train_exp.list_last_epoch_metrics, metric_type='F1-Score')
-    get_mean_metrics(single_train_exp.list_last_epoch_metrics, metric_type='Accuracy')
+    mean_last_mcc, std_last_mcc = get_mean_metrics(single_train_exp.list_last_epoch_metrics, metric_type='MCC')
+    mean_last_f1_score, std_last_f1_score = get_mean_metrics(single_train_exp.list_last_epoch_metrics, metric_type='F1-Score')
+    mean_last_accuracy, std_last_accuracy = get_mean_metrics(single_train_exp.list_last_epoch_metrics, metric_type='Accuracy')
 
 if __name__=='__main__':
     main()

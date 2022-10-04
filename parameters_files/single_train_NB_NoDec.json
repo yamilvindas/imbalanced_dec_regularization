@@ -6,6 +6,5 @@
   "batch_size": 32,
   "nb_epochs": 100,
   "importance_dec": 5e-1,
-  "epoch_init_dec_loss": 1,
-  "plot_animation_bool": true
+  "epoch_init_dec_loss": 1
 }

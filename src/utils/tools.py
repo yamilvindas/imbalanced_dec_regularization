@@ -5,6 +5,7 @@
     They can be used to plot the 3D points datasets or their 2D projections.
     It also implements some functions allowing to plot the results of an experiment.
 """
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
@@ -65,7 +66,9 @@ def plot_points_by_class_2D(data_points, labels, centroids=None, show_fig=True, 
 
     # Saving the figure
     if (save_fig):
-        plt.savefig('./tmpImagesForGIF/'+file_name_fig)
+        if (not os.path.isdir('../results/.tmp_images_for_gif/')):
+            os.mkdir('../results/.tmp_images_for_gif/')
+        plt.savefig('../results/.tmp_images_for_gif/'+file_name_fig)
 
     # Showing the figure
     if (show_fig):
@@ -141,7 +144,9 @@ def plot_points_by_class_3D(data_points, labels, centroids=None, show_fig=True, 
 
     # Saving the figure
     if (save_fig):
-        plt.savefig('./tmpImagesForGIF/'+file_name_fig)
+        if (not os.path.isdir('../results/.tmp_images_for_gif/')):
+            os.mkdir('../results/.tmp_images_for_gif/')
+        plt.savefig('../results/.tmp_images_for_gif/'+file_name_fig)
 
     # Showing the figure
     if (show_fig):
@@ -151,7 +156,7 @@ def plot_points_by_class_3D(data_points, labels, centroids=None, show_fig=True, 
     if (close_fig):
         plt.close()
 
-def plot_animation(files_image_list, animation_file_name="./tmpGIFs/tmpGIF.mp4"):
+def plot_animation(files_image_list, animation_file_name="../results/Experiment_1/tmpGIF.mp4"):
     """
         Creates an animation (mp4 file) using the images in the list file_image_list.
 
@@ -171,7 +176,7 @@ def plot_animation(files_image_list, animation_file_name="./tmpGIFs/tmpGIF.mp4")
     ax.axis('off')
     ani = animation.ArtistAnimation(fig, ims, interval=200, blit=True, repeat_delay=5000)
     ani.save(animation_file_name)
-    plt.show()
+    # plt.show()
 
     return ani
 
@@ -198,3 +203,5 @@ def get_mean_metrics(repetitions_fixed_epoch_metrics, metric_type):
     mean_train_metric, std_train_metric = np.mean(metric_dict['Train']), np.std(metric_dict['Train'])
     mean_test_metric, std_test_metric = np.mean(metric_dict['Test']), np.std(metric_dict['Test'])
     print("\tTest {}: {} +- {}".format(metric_type, mean_test_metric*100, std_test_metric*100))
+
+    return mean_test_metric*100, std_test_metric*100
