@@ -101,4 +101,4 @@ This experiment can also be launched on the command line using the file *src/exp
 The results (for the notebook or the python file), will be stored in *results/Experiment_2/. If they are launched with the option *study_hyperparams* set to *False*, then pre-computed results will be used. 
 The results of this experiment should be similar to the following ones:
 
-TODO: ADD MATRIX VALUES FIGURES !!!!
+![alt text](https://github.com/gitanonymoussubmussion/imbalanced_dec_regularization/blob/main/figs/Results/Experiment_2/MatrixValues.png)
