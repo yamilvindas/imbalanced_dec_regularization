@@ -72,6 +72,7 @@ The second file, *experiment_2.py*, can be launched with the option "study_hyper
 Experiment 1 can be launched using the notebook *notebooks/experiments/Experiment_1.ipynb*.
 
 This experiment can also be launched on the command line using the file *src/experiments/experiment_1.py*:
+
     cd src/experiments/
     python experiment_1.py --obtain_animation_bool True
     
@@ -93,6 +94,7 @@ The results of this experiment should be similar to the following ones:
 Experiment 2 can be launched using the notebook *notebooks/experiments/Experiment_2.ipynb*.
 
 This experiment can also be launched on the command line using the file *src/experiments/experiment_2.py*:
+
     cd src/experiments/
     python experiment_2.py --study_hyperparams True
     
