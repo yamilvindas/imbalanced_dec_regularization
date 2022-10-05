@@ -66,9 +66,9 @@ def plot_points_by_class_2D(data_points, labels, centroids=None, show_fig=True, 
 
     # Saving the figure
     if (save_fig):
-        if (not os.path.isdir('../results/.tmp_images_for_gif/')):
-            os.mkdir('../results/.tmp_images_for_gif/')
-        plt.savefig('../results/.tmp_images_for_gif/'+file_name_fig)
+        if (not os.path.isdir('../../results/.tmp_images_for_gif/')):
+            os.mkdir('../../results/.tmp_images_for_gif/')
+        plt.savefig('../../results/.tmp_images_for_gif/'+file_name_fig)
 
     # Showing the figure
     if (show_fig):
@@ -144,9 +144,9 @@ def plot_points_by_class_3D(data_points, labels, centroids=None, show_fig=True, 
 
     # Saving the figure
     if (save_fig):
-        if (not os.path.isdir('../results/.tmp_images_for_gif/')):
-            os.mkdir('../results/.tmp_images_for_gif/')
-        plt.savefig('../results/.tmp_images_for_gif/'+file_name_fig)
+        if (not os.path.isdir('../../results/.tmp_images_for_gif/')):
+            os.mkdir('../../results/.tmp_images_for_gif/')
+        plt.savefig('../../results/.tmp_images_for_gif/'+file_name_fig)
 
     # Showing the figure
     if (show_fig):
@@ -156,7 +156,7 @@ def plot_points_by_class_3D(data_points, labels, centroids=None, show_fig=True, 
     if (close_fig):
         plt.close()
 
-def plot_animation(files_image_list, animation_file_name="../results/Experiment_1/tmpGIF.mp4"):
+def plot_animation(files_image_list, animation_file_name="../../results/Experiment_1/tmpGIF.mp4"):
     """
         Creates an animation (mp4 file) using the images in the list file_image_list.
 
@@ -177,8 +177,7 @@ def plot_animation(files_image_list, animation_file_name="../results/Experiment_
     ani = animation.ArtistAnimation(fig, ims, interval=200, blit=True, repeat_delay=5000)
     ani.save(animation_file_name)
     # plt.show()
-
-    return ani
+    plt.close(fig)
 
 def get_mean_metrics(repetitions_fixed_epoch_metrics, metric_type):
     """
