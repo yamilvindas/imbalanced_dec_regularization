@@ -12,7 +12,15 @@ Install the different libraries needed to execute the different codes:
 
 To be able to run the different codes, you need to start by running the following command:
 
-    export PYTHONPATH="${PYTHONPATH}:path_to_the_imbalanced-dec-regularization_code"
+- For Linux systems:
+
+        export PYTHONPATH="${PYTHONPATH}:path_to_the_imbalanced-dec-regularization_code"
+
+
+
+- For Windows systems:
+    
+        set PYTHONPATH=%PYTHONPATH%;path_to_the_imbalanced-dec-regularization_code
 
 ## III) Proposed Method
 
