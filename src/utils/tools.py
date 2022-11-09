@@ -10,6 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.animation as animation
+from scipy.stats import median_abs_deviation as mad
 
 
 # Global variables
@@ -204,3 +205,30 @@ def get_mean_metrics(repetitions_fixed_epoch_metrics, metric_type):
     print("\tTest {}: {} +- {}".format(metric_type, mean_test_metric*100, std_test_metric*100))
 
     return mean_test_metric*100, std_test_metric*100
+
+def get_median_metrics(repetitions_fixed_epoch_metrics, metric_type):
+    """
+        Compute the median metrics (over the repetitions) of an experiment at a
+        given and fixed epoch.
+
+        Arguments:
+        ----------
+        repetitions_fixed_epoch_metrics: list
+            List of dictionaries. Each element corresponds to a dictionary with
+            two keys, 'Train' and 'Test', and the values are also dictionaries
+            with three keys 'MCC', 'F1-Score', and 'Accuracy'
+        metric_type: str
+            Metric to use for the computation. Three options: MCC, F1-Score, and
+            Accuracy.
+    """
+    nb_repetitions = len(repetitions_fixed_epoch_metrics)
+    metric_dict = {
+                        'Train': [repetitions_fixed_epoch_metrics[i]['Train'][metric_type] for i in range(nb_repetitions)],
+                        'Test': [repetitions_fixed_epoch_metrics[i]['Test'][metric_type] for i in range(nb_repetitions)]
+                    }
+
+    median_train_metric, mad_train_metric = np.median(metric_dict['Train']), mad(metric_dict['Train'])
+    median_test_metric, mad_test_metric = np.median(metric_dict['Test']), mad(metric_dict['Test'])
+    print("\tTest {}: {} +- {}".format(metric_type, median_test_metric*100, mad_test_metric*100))
+
+    return median_test_metric*100, mad_test_metric*100
